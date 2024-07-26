@@ -22,6 +22,8 @@ Create an environment variable `TEMPLATES` and set it to the path where you'll s
 
 Create a new directory with the desired name (Templix uses the directory name during initialization) and add the necessary files to it. Inside each file, you can optionally include the `templix{name}` and `templix{path}` placeholders, which will be replaced by the project name and the root path of the project, respectively, when using Templix.
 
+Refer to [templates](https://www.github.com/jmstevers/templix/templates) for example templates.
+
 ### Initialize a Template
 
 To initialize a template with Templix, use the following command:
