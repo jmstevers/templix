@@ -1,0 +1,14 @@
+[package]
+edition = "2021"
+version = "0.1.0"
+name = "templix"
+description = "A simple templating tool."
+repository = "https://github.com/jmstevers/templix"
+authors = ["Johnathan Stevers <jmstevers@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
+anyhow = "1.0.86"
+clap = { version = "4.5.10", features = ["derive"] }
+walkdir = "2.5.0"
