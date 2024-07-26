@@ -22,7 +22,7 @@ Create an environment variable `TEMPLATES` and set it to the path where you'll s
 
 Create a new directory with the desired name (Templix uses the directory name during initialization) and add the necessary files to it. Inside each file, you can optionally include the `templix{name}` and `templix{path}` placeholders, which will be replaced by the project name and the root path of the project, respectively, when using Templix.
 
-Refer to [templates](https://www.github.com/jmstevers/templix/master/templates) for example templates.
+Refer to [templates](https://github.com/jmstevers/templix/tree/master/templates) for example templates.
 
 ### Initialize a Template
 
@@ -52,5 +52,5 @@ This will display a list of all the templates available in the `TEMPLATES` direc
 
 
 ## License
-[APACHE](https://www.github.com/jmstevers/templix/master/LICENSE-APACHE) or
-[MIT](https://www.github.com/jmstevers/templix/master/LICENSE-MIT)
+[APACHE](https://github.com/jmstevers/templix/tree/master/LICENSE-APACHE) or
+[MIT](https://github.com/jmstevers/templix/tree/master/LICENSE-MIT)
