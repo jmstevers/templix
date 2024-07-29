@@ -7,10 +7,6 @@ use walkdir::WalkDir;
 struct Cli {
     #[command(subcommand)]
     command: Commands,
-
-    /// The path to the templates directory.
-    #[arg(short, long)]
-    templates_path: Option<String>,
 }
 
 #[derive(Subcommand, Debug)]
@@ -26,9 +22,17 @@ enum Commands {
         /// The path where the project should be initialized.
         #[arg(default_value = ".")]
         project_path: Option<String>,
+
+        /// The path to the templates directory.
+        #[arg(short, long)]
+        templates_path: Option<String>,
     },
     /// List all available templates.
-    List,
+    List {
+        /// The path to the templates directory.
+        #[arg(short, long)]
+        templates_path: Option<String>,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
@@ -39,13 +43,14 @@ fn main() -> anyhow::Result<()> {
             template_name,
             project_name,
             project_path,
+            templates_path,
         } => init(
-            args.templates_path,
+            templates_path,
             &template_name,
             &project_name,
             project_path.unwrap_or(".".into()).into(),
         )?,
-        Commands::List => list()?,
+        Commands::List { templates_path } => list(templates_path)?,
     }
 
     Ok(())
@@ -58,7 +63,7 @@ fn init(
     path: PathBuf,
 ) -> anyhow::Result<()> {
     let templates_path = match templates_path {
-        Some(path) => path.into(),
+        Some(path) => Path::new(&path).join(template_name),
         None => {
             let templates_env = std::env::var_os("templates")
                 .ok_or(anyhow::anyhow!("No templates directory set"))?;
@@ -89,12 +94,17 @@ fn init(
     Ok(())
 }
 
-fn list() -> anyhow::Result<()> {
-    let templates_env =
-        std::env::var_os("templates").ok_or(anyhow::anyhow!("No templates directory set"))?;
-    let templates_path = Path::new(&templates_env);
+fn list(templates_path: Option<String>) -> anyhow::Result<()> {
+    let templates_path: PathBuf = match templates_path {
+        Some(path) => path.into(),
+        None => {
+            let templates_env = std::env::var_os("templates")
+                .ok_or(anyhow::anyhow!("No templates directory set"))?;
+            Path::new(&templates_env).to_path_buf()
+        }
+    };
 
-    for entry in std::fs::read_dir(templates_path)? {
+    for entry in std::fs::read_dir(&templates_path)? {
         let entry = entry?;
         let copy_path = entry.path();
         let write_path = copy_path.strip_prefix(&templates_path).unwrap();
