@@ -29,13 +29,13 @@ Refer to [templates](https://github.com/jmstevers/templix/tree/master/templates)
 To initialize a template with Templix, use the following command:
 
 ```
-templix init <template_name> <path/to/project>
+templix init <template_name> <project_name> <path/to/project>
 ```
 
-For example, to initialize a template named "zig" in the current directory, you can run:
+For example, to initialize a project named "example" using the "zig" template in the current directory, you can run:
 
 ```
-templix init zig
+templix init zig example
 ```
 
 If you want to specify a custom path for the project, you can provide the `path/to/project` argument. Otherwise, the path will default to the current directory.
